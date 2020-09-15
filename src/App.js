@@ -14,9 +14,6 @@ class App extends Component {
         super(props)
 
         this.state = {
-            balance: 0,
-            income: 0,
-            expense: 0,
             transcationDetail : []
         }
     }
@@ -28,33 +25,14 @@ class App extends Component {
             id: Date.now()
         }
 
-        const incomeIncrease = (amount >= 0) ? parseInt(amount) + parseInt(this.state.income) : parseInt(this.state.income);
-        const expenseIncrease = (amount < 0) ? parseInt(this.state.expense) - parseInt(amount) : parseInt(this.state.expense);
-
         this.setState ({
-            balance: parseInt(this.state.balance) + parseInt(amount),
-            income: incomeIncrease,
-            expense: expenseIncrease,
             transcationDetail: [...this.state.transcationDetail, newTrans]
         });
     }
 
     removeTrascation = (id) => {
-        const toRemove = this.state.transcationDetail.filter((transc) => transc.id === id)[0]
-        //
-        const incomeIncrease = (toRemove.cash >= 0) ? parseInt(this.state.income) - parseInt(toRemove.cash) : parseInt(this.state.income);
-        const expenseIncrease = (toRemove.cash < 0) ? parseInt(this.state.expense) + parseInt(toRemove.cash) : parseInt(this.state.expense);
-
-        console.log(toRemove);
-        console.log(incomeIncrease);
-        console.log(expenseIncrease);
-        console.log(toRemove.cash);
-
         //
         this.setState ({
-            balance: parseInt(this.state.balance) - parseInt(toRemove.cash),
-            income: incomeIncrease,
-            expense: expenseIncrease,
             transcationDetail: this.state.transcationDetail.filter((transc) => transc.id !== id)
         });
     }
@@ -65,8 +43,8 @@ class App extends Component {
                 <div>
                     <Header/>
                     <div className = "container">
-                        <Balance balance = { this.state.balance }/>
-                        <IncomeExpense income = { this.state.income } expense = { this.state.expense }/>
+                        <Balance trans = { this.state.transcationDetail }/>
+                        <IncomeExpense trans = { this.state.transcationDetail }/>
                         <History cards = { this.state.transcationDetail } onSubmit = { this.removeTrascation }/>
                         <AddTranscation onSubmit = { this.newTranscation }/>
                     </div>
