@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const connect = "mongodb+srv://sangeetds:sangeetds@expensetraceker.pknf2.mongodb.net/ExpenseTraceker?retryWrites=true&w=majority"
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(connect, {
+    const conn = await mongoose.connect(process.MONGO_DB, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true
