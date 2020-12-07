@@ -4,11 +4,11 @@ import '../App.css'
 export const IncomeExpense = (props) => {
 
     const income = props.trans.reduce((previous, current) => {
-        const ret = (parseInt(current.cash) >= 0) ? parseInt(previous) + parseInt(current.cash) : parseInt(previous);
+        const ret = (parseInt(current.amount) >= 0) ? parseInt(previous) + parseInt(current.amount) : parseInt(previous);
         return ret;
     }, 0)
     const expense = props.trans.reduce((previous, current) => {
-        const ret = (parseInt(current.cash) < 0) ? parseInt(previous) + parseInt(current.cash) : parseInt(previous);
+        const ret = (parseInt(current.amount) < 0) ? parseInt(previous) + parseInt(current.amount) : parseInt(previous);
         return ret;
     }, 0)
 

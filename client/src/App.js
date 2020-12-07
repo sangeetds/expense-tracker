@@ -21,29 +21,31 @@ class App extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/api/v1/transcations').then(res => {
+        axios.get('/api/v1/transcations').then(res => {
             this.setState( { transcationDetail: res.data.data } );
-            console.log(res.data.data);
         })
     }
 
     newTranscation = (description, amount) => {
         const newTrans = {
-            detail: description,
-            cash: amount,
-            id: Date.now()
+            text: description,
+            amount: parseInt(amount)
         }
 
-        this.setState ({
+        axios.post('/api/v1/transcations', { newTrans });
+
+        this.setState( {
             transcationDetail: [...this.state.transcationDetail, newTrans]
-        });
+        })
     }
 
     removeTrascation = (id) => {
-        //
-        this.setState ({
-            transcationDetail: this.state.transcationDetail.filter((transc) => transc.id !== id)
-        });
+        const URL = `/api/v1/transcations/${id}`
+        axios.delete(URL)
+
+        this.setState( {
+            transcationDetail: this.state.transcationDetail.filter(transaction => transaction._id !== id)
+        } );
     }
 
     render(){

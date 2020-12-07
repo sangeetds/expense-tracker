@@ -7,8 +7,6 @@ exports.getTransactions = async (req, res, next) => {
   try {
     const transactions = await Transaction.find();
 
-    res.header("Access-Control-Allow-Origin", "*");
-    
     return res.status(200).json({
       success: true,
       count: transactions.length,
@@ -27,13 +25,12 @@ exports.getTransactions = async (req, res, next) => {
 // @access  Public
 exports.addTransaction = async (req, res, next) => {
   try {
-    const { text, amount } = req.body;
+    const transc = req.body.newTrans;
 
-    const transaction = await Transaction.create(req.body);
+    const transaction = await Transaction.create(transc);
 
     return res.status(201).json({
       success: true,
-      data: transaction
     });
   } catch (err) {
     if(err.name === 'ValidationError') {
