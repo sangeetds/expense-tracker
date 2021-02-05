@@ -1,20 +1,21 @@
-const mongoose = require('mongoose');
-const connect = "mongodb+srv://sangeetds:sangeetds@expensetraceker.pknf2.mongodb.net/ExpenseTraceker?retryWrites=true&w=majority"
+require("dotenv").config();
+
+const mongoose = require("mongoose");
+const connect = process.env.MONGO_URL;
 
 const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(connect, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true
-    });
+	try {
+		const conn = await mongoose.connect(connect, {
+			useNewUrlParser: true,
+			useCreateIndex: true,
+			useUnifiedTopology: true
+		});
 
-    console.log("MongoDB connected");
-
-  } catch (err) {
-    console.log(Error);
-    process.exit(1);
-  }
-}
+		console.log("MongoDB connected");
+	} catch (err) {
+		console.log(Error);
+		process.exit(1);
+	}
+};
 
 module.exports = connectDB;
